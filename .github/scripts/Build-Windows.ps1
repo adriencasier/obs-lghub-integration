@@ -12,26 +12,27 @@ param(
     [switch] $SkipUnpack
 )
 
-$ErrorActionPreference = 'Stop'
+begin {
+    $ErrorActionPreference = 'Stop'
 
-if ( $DebugPreference -eq 'Continue' ) {
-    $VerbosePreference = 'Continue'
-    $InformationPreference = 'Continue'
+    if ( $DebugPreference -eq 'Continue' ) {
+        $VerbosePreference = 'Continue'
+        $InformationPreference = 'Continue'
+    }
+    
+    if ( $PSVersionTable.PSVersion -lt '7.0.0' ) {
+        Write-Warning 'The obs-deps PowerShell build script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'
+        exit 2
+    }
 }
 
-if ( $PSVersionTable.PSVersion -lt '7.0.0' ) {
-    Write-Warning 'The obs-deps PowerShell build script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'
-    exit 2
-}
-
-function Build {
+process {
     trap {
         Pop-Location -Stack BuildTemp -ErrorAction 'SilentlyContinue'
         Write-Error $_
         exit 2
     }
 
-    $ScriptHome = $PSScriptRoot
     $ProjectRoot = Resolve-Path -Path "$PSScriptRoot/../.."
     $BuildSpecFile = "${ProjectRoot}/buildspec.json"
 
@@ -97,5 +98,3 @@ function Build {
 
     Pop-Location -Stack BuildTemp
 }
-
-Build
