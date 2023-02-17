@@ -1,4 +1,6 @@
-# OBS Plugin Template
+# OBS LG Hub Integration
+
+> Work in progress
 
 ## Introduction
 
@@ -16,7 +18,7 @@ Open `buildspec.json` and change the name and version of the plugin accordingly.
 Next, open `CMakeLists.txt` and edit the following lines at the beginning:
 
 ```cmake
-project(obs-plugintemplate VERSION 1.0.0)
+project(obs-lghub-integration VERSION 1.0.0)
 
 set(PLUGIN_AUTHOR "Your Name Here")
 
