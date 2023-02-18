@@ -14,7 +14,7 @@ param(
 
 begin {
     $ErrorActionPreference = 'Stop'
-    $ScriptHome = $ProjectRoot
+    $ScriptHome = $PSScriptRoot
 
     if ( $DebugPreference -eq 'Continue' ) {
         $VerbosePreference = 'Continue'
