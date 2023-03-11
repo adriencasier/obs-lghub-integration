@@ -351,6 +351,8 @@ jobs:
     defaults:
       run:
         shell: bash
+    permissions:
+      contents: write
     steps:
       - name: Get Metadata
         id: metadata
@@ -366,7 +368,7 @@ jobs:
           ## CHECKSUM GENERATION SCRIPT
           shopt -s extglob
           echo "### Checksums" > ${{ github.workspace }}/CHECKSUMS.txt
-          for file in ${{ github.workspace }}/**/@(*.pkg|*.exe|*.deb|*.zip); do
+          for file in ${{ github.workspace }}/**/@(*.pkg|*.exe|*.zip); do
             echo "    ${file##*/}: $(sha256sum "${file}" | cut -d " " -f 1)" >> ${{ github.workspace }}/CHECKSUMS.txt
           done
 
@@ -382,5 +384,4 @@ jobs:
           files: |
             ${{ github.workspace }}/**/*.zip
             ${{ github.workspace }}/**/*.exe
-            ${{ github.workspace }}/**/*.deb
             ${{ github.workspace }}/**/*.pkg
