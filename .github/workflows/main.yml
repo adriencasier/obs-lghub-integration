@@ -49,7 +49,6 @@ jobs:
       matrix:
         arch: [x86_64, arm64, universal]
     if: always()
-    needs: [clang_check]
     outputs:
       commitHash: ${{ steps.setup.outputs.commitHash }}
     env:
@@ -257,7 +256,6 @@ jobs:
       matrix:
         arch: [x64]
     if: always()
-    needs: [clang_check]
     outputs:
       commitHash: ${{ steps.setup.outputs.commitHash }}
     defaults:
